@@ -1,11 +1,6 @@
 demo preview  
 ===
 ![](https://github.com/Chencole/select-tool/blob/master/images/preview.gif)使用方法  
-   
-   
-预览  
-===
-双击index.html  
   
   
 使用方法  
