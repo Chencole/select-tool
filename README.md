@@ -1,4 +1,4 @@
-demo preview  
+ddemo preview  
 ===
 ![](https://github.com/Chencole/select-tool/blob/master/images/preview.gif)
 使用方法  
@@ -6,6 +6,13 @@ demo preview
   
   
 step1: 引入脚本  
+```javascript
+<script src="./js/selectTool.js"></script>
+```
+step2：创建被初始化的html元素包含可被选中的div或任意元素标签（.selectDashboard），和可被选中的任意html标签(.selectItem)  
+![](https://github.com/Chencole/select-tool/blob/master/images/bind.png)  
+  
+step3：调用函数传入初始化参数  
 ```javascript
 selectToolInit({
         initTarget: '.selectDashboard',
@@ -22,11 +29,6 @@ selectToolInit({
         }
     });
 ```
-step2：创建被初始化的html元素包含可被选中的div或任意元素标签（.selectDashboard），和可被选中的任意html标签(.selectItem)  
-![](https://github.com/Chencole/select-tool/blob/master/images/bind.png)  
-  
-step3：调用函数传入初始化参数  
-![](https://github.com/Chencole/select-tool/blob/master/images/initFunction.png)  
 initTarget  
 ![](https://github.com/Chencole/select-tool/blob/master/images/initSelectBox.png)  
 selectElement  
