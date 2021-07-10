@@ -1,4 +1,4 @@
-ddemo preview  
+demo preview  
 ===
 ![](https://github.com/Chencole/select-tool/blob/master/images/preview.gif)
 使用方法  
