@@ -36,8 +36,8 @@ selectToolInit({
     })
 ```
 canvas  
-![](https://github.com/Chencole/select-tool/blob/master/images/select_tool_canvs.png)  
-initTarget  
 ![](https://github.com/Chencole/select-tool/blob/master/images/initSelectBox.png)  
+initTarget  
+![](https://github.com/Chencole/select-tool/blob/master/images/select_tool_canvs.png)  
 selectElement  
 ![](https://github.com/Chencole/select-tool/blob/master/images/selectItemAndIds.png)  
