@@ -18,20 +18,25 @@ step2：创建被初始化的html元素包含可被选中的div或任意元素�
 step3：调用函数传入初始化参数  
 ```javascript
 selectToolInit({
-        initTarget: '.selectDashboard',
-        selectElement: '.selectItem',
-        optionalContentmenu: { single: ['修改', '删除', '上架', '下架'], multiple: ['批量删除', '批量上架', '批量下架'] },
-        crudEventCallback(handleTitle, event, selectNode) {
-            console.log(handleTitle, event, selectNode);
+        canvas:'.selectDashboard',
+        initTarget:'.selet_tool_canvas',
+        selectElement:'.selectItem',
+        // onloadBanRightClickTarget:'.resultContent',  ban browser contentmenu if mutiple select-tool methods in page
+        optionalContentmenu:{single:['修改','删除','下发课程','上架','下架'],multiple:['批量删除','批量下发课程','批量上架','批量下架']},
+        customAttribute:['customAttribute'],
+        crudEventCallback(handleTitle,event,selectNode){
+            console.log('click select tool contentmenu==================>',handleTitle,event,selectNode)
         },
-        itemClick(data, event) {
-            console.log(data, event);
+        itemClick(basedata,event){
+            console.log('click item==================>',basedata)
         },
-        selectedEventListener(arr) {
-            console.log(arr);
+        selectedEventListener(arr){
+            console.log('selected==================>',arr)
         }
-    });
+    })
 ```
+canvas  
+![](https://github.com/Chencole/select-tool/blob/master/images/select_tool_canvs.png)  
 initTarget  
 ![](https://github.com/Chencole/select-tool/blob/master/images/initSelectBox.png)  
 selectElement  
