@@ -9,6 +9,7 @@ function selectToolInit(config) {
     let startPointY
     let elemArr = document.querySelectorAll(pconfig.selectElement)
     let initTarget = document.querySelector(pconfig.initTarget)
+    let canvas=document.querySelector(pconfig.canvas)
     let batch = false
     let dragShadowBox
     let mouseActivePointX
@@ -20,22 +21,19 @@ function selectToolInit(config) {
     let selectedArr = []
     let ctrl = false
     if(pconfig.onloadBanRightClickTarget){
-        window.onload = function () {
-            document.querySelector(pconfig.onloadBanRightClickTarget).oncontextmenu = function () { return false; }
-        }
+        document.querySelector(pconfig.onloadBanRightClickTarget).oncontextmenu = function () { return false; }
     }else {
-        window.onload = function () {
-            initTarget.oncontextmenu = function () { return false; }
-        }
+        canvas.oncontextmenu = function () { return false; }
     }
-    initTarget['verificationRoot'] = verification
-    initTarget.setAttribute('style', 'display:flex;width:100%;height:auto;flex-wrap:wrap;align-content:flex-start;user-select:none;position:relative;overflow-y:auto;')
+    canvas.verificationRoot = verification
+    canvas.setAttribute('style','width:100%;height:100%;position:relative;')
+    initTarget.setAttribute('style', 'display:flex;width:100%;height:auto;flex-wrap:wrap;align-content:flex-start;user-select:none;position:relative;overflow-y:auto;pointer-events:none;')
     function selectToolSktechFc() {
         dragShadowBox = document.createElement('div')
         dragShadowBox.setAttribute('style', `display:flex;background:#d7e2f0;border:1px dashed #62befb;user-select:none;pointer-events:none;top:-1000px;position:absolute;
     z-index:2007;opacity:0.4;`)
-        initTarget.appendChild(dragShadowBox)
-        initTarget.addEventListener('mousedown', (e) => {
+        canvas.appendChild(dragShadowBox)
+        canvas.addEventListener('mousedown', (e) => {
             if (e.button == 0) {
                 if (e.target.handleSingleButton == verification + 'handleSingleButton') {
 
@@ -111,12 +109,14 @@ function selectToolInit(config) {
                         if (targetNode.parentNode[foundType] == verification) {
                             contentmenuSingle.style.left = targetNode.parentNode.offsetLeft + e.layerX + 'px'
                             contentmenuSingle.style.top = targetNode.parentNode.offsetTop + e.layerY + 'px'
-                            singleSelectActiveData = { id: targetNode.parentNode.getAttribute('ids') }
+                            let getObj = getCustomData(targetNode.parentNode)
+                            singleSelectActiveData = { ids: targetNode.parentNode.getAttribute('ids'),data:getObj }
                             return
                         } else if (targetNode[foundType]) {
                             contentmenuSingle.style.left = targetNode.offsetLeft + e.layerX + 'px'
                             contentmenuSingle.style.top = targetNode.offsetTop + e.layerY + 'px'
-                            singleSelectActiveData = { id: targetNode.getAttribute('ids') }
+                            let getObj = getCustomData(targetNode)
+                            singleSelectActiveData = { ids: targetNode.getAttribute('ids'),data:getObj }
                             return
                         } else {
                             foofoundRightParentNode(foundType, targetNode.parentNode, verification)
@@ -125,7 +125,7 @@ function selectToolInit(config) {
                 }
             }
         })
-        initTarget.addEventListener('mouseup', (e) => {
+        canvas.addEventListener('mouseup', (e) => {
             if (e.button == 2) {
 
             }
@@ -139,14 +139,14 @@ function selectToolInit(config) {
             dragShadowBox.style.width = '0px'
             dragShadowBox.style.height = '0px'
         })
-        initTarget.addEventListener('mouseleave', (e) => {
+        canvas.addEventListener('mouseleave', (e) => {
             dragMotive = false
             clearTimeout(isDraw)
             dragShadowBox.style.top = '-1000px'
             dragShadowBox.style.width = '0px'
             dragShadowBox.style.height = '0px'
         })
-        initTarget.addEventListener('mousemove', (e) => {
+        canvas.addEventListener('mousemove', (e) => {
             mouseActivePointX = e.layerX
             mouseActivePointY = e.layerY
             if (dragMotive) {
@@ -203,7 +203,7 @@ function selectToolInit(config) {
         contentmenuSingle.single = verification + 'single'
         let span = document.createElement('span')
         contentmenuSingle.style = 'display:flex;min-width:90px;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
-        span.style = 'width:100%;color:#000;padding:5px 10px'
+        span.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;'
         span.classList.add('HoverStyles')
         let setSpanHoverStyle = document.createElement('style')
         setSpanHoverStyle.innerHTML = `.HoverStyles:hover{background:#fff;}`
@@ -218,12 +218,12 @@ function selectToolInit(config) {
             })
             contentmenuSingle.appendChild(cspan)
         }
-        initTarget.appendChild(contentmenuSingle)
+        canvas.appendChild(contentmenuSingle)
         contentmenuMultiple = document.createElement('div')
         contentmenuMultiple.multiple = verification + 'multiple'
         let spans = document.createElement('span')
         contentmenuMultiple.style = 'display:flex;min-width:90px;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
-        spans.style = 'width:100%;color:#000;padding:5px 10px'
+        spans.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;'
         spans.classList.add('HoverStyles')
         for (let i = 0; i < multiple.length; i++) {
             let cspans = spans.cloneNode(true)
@@ -266,7 +266,7 @@ function selectToolInit(config) {
             contentmenuMultiple.style.top = '-1000px'
         })
         contentmenuMultiple.appendChild(closeButton)
-        initTarget.appendChild(contentmenuMultiple)
+        canvas.appendChild(contentmenuMultiple)
     }
     function optionalElemInitFc() {
         for (let i = 0; i < elemArr.length; i++) {
@@ -293,10 +293,18 @@ function selectToolInit(config) {
                         selectedArr = [...new Set(selectedArr)]
                     }
                 } else {
-                    pconfig.itemClick({ id: elemArr[i].getAttribute('ids') }, e)
+                    let getObj = getCustomData(elemArr[i])
+                    pconfig.itemClick({ ids: elemArr[i].getAttribute('ids'),data:getObj }, e)
                 }
             })
         }
+    }
+    function getCustomData(node){
+        let obj={}
+        for(let i=0;i<pconfig.customAttribute.length;i++){
+            obj[pconfig.customAttribute[i]]=node.getAttribute(pconfig.customAttribute[i])
+        }
+        return obj
     }
     function foundRightNode(foundType, nodeList, targetName) {
         for (let i = 0; i < nodeList.length; i++) {
