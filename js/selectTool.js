@@ -138,6 +138,14 @@ function selectToolInit(config) {
             dragShadowBox.style.top = '-1000px'
             dragShadowBox.style.width = '0px'
             dragShadowBox.style.height = '0px'
+            if(selectedArr.length==0){
+                batch=false
+                for (let i = 0; i < elemArr.length; i++) {
+                    let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
+                    rightNode.style.display = 'none'
+                    rightNode.checked = false
+                }
+            }
         })
         canvas.addEventListener('mouseleave', (e) => {
             dragMotive = false
@@ -202,8 +210,8 @@ function selectToolInit(config) {
         contentmenuSingle = document.createElement('div')
         contentmenuSingle.single = verification + 'single'
         let span = document.createElement('span')
-        contentmenuSingle.style = 'display:flex;min-width:90px;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
-        span.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;'
+        contentmenuSingle.style = 'display:flex;min-width:90px;user-select:none;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
+        span.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;user-select:none;'
         span.classList.add('HoverStyles')
         let setSpanHoverStyle = document.createElement('style')
         setSpanHoverStyle.innerHTML = `.HoverStyles:hover{background:#fff;}`
@@ -222,8 +230,8 @@ function selectToolInit(config) {
         contentmenuMultiple = document.createElement('div')
         contentmenuMultiple.multiple = verification + 'multiple'
         let spans = document.createElement('span')
-        contentmenuMultiple.style = 'display:flex;min-width:90px;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
-        spans.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;'
+        contentmenuMultiple.style = 'display:flex;min-width:90px;user-select:none;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
+        spans.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;user-select:none;'
         spans.classList.add('HoverStyles')
         for (let i = 0; i < multiple.length; i++) {
             let cspans = spans.cloneNode(true)
