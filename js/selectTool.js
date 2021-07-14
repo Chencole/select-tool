@@ -280,6 +280,8 @@ function selectToolInit(config) {
         for (let i = 0; i < elemArr.length; i++) {
             elemArr[i].style.position = 'relative'
             elemArr[i].style.userSelect= 'none'
+            elemArr[i].style.pointerEvents= 'auto'
+            elemArr[i].style.cursor= 'pointer'
             let radiusElem = document.createElement('input')
             radiusElem.setAttribute('type', 'checkbox')
             radiusElem.setAttribute('style', 'display:none;position:absolute;top:2px;right:2px;z-index:2005;pointer-events:none;')
