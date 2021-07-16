@@ -343,4 +343,15 @@ function selectToolInit(config) {
             event.preventDefault();
         }
     }, { passive: false });
+    function autoAdjustHeight (){
+        if(initTarget.offsetHeight>canvas.offsetHeight){
+            canvas.style.height=initTarget.offsetHeight+'px'
+        }else if(initTarget.offsetHeight<canvas.offsetHeight){
+            canvas.style.height='100%'
+        }
+    }
+    autoAdjustHeight()
+    window.onresize=()=>{
+        autoAdjustHeight()
+    }
 }
