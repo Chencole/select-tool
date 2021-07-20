@@ -121,7 +121,7 @@ function selectToolInit(config) {
                             contentmenuSingle.style.top = targetNode.offsetTop + e.layerY + 'px'
                             let getObj = getCustomData(targetNode)
                             singleSelectActiveData = { ids: targetNode.getAttribute('ids'), data: getObj }
-                            selectedNodeSingle = targetNode.parentNode
+                            selectedNodeSingle = targetNode
                             return
                         } else {
                             foofoundRightParentNode(foundType, targetNode.parentNode, verification)
