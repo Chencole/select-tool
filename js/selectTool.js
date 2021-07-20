@@ -20,6 +20,7 @@ function selectToolInit(config) {
     let singleSelectActiveData
     let selectedArr = []
     let ctrl = false
+    let selectedNodeSingle
     if(pconfig.onloadBanRightClickTarget){
         document.querySelector(pconfig.onloadBanRightClickTarget).oncontextmenu = function () { return false; }
     }else {
@@ -41,7 +42,9 @@ function selectToolInit(config) {
 
                 } else {
                     contentmenuSingle.style.top = '-1000px'
+                    contentmenuSingle.style.left = '0px'
                     contentmenuMultiple.style.top = '-1000px'
+                    contentmenuMultiple.style.left = '0px'
                     isDraw = setTimeout(() => {
                         for (let i = 0; i < elemArr.length; i++) {
                             elemArr[i].style.pointerEvents = 'none'
@@ -111,12 +114,14 @@ function selectToolInit(config) {
                             contentmenuSingle.style.top = targetNode.parentNode.offsetTop + e.layerY + 'px'
                             let getObj = getCustomData(targetNode.parentNode)
                             singleSelectActiveData = { ids: targetNode.parentNode.getAttribute('ids'),data:getObj }
+                            selectedNodeSingle=targetNode.parentNode
                             return
                         } else if (targetNode[foundType]) {
                             contentmenuSingle.style.left = targetNode.offsetLeft + e.layerX + 'px'
                             contentmenuSingle.style.top = targetNode.offsetTop + e.layerY + 'px'
                             let getObj = getCustomData(targetNode)
                             singleSelectActiveData = { ids: targetNode.getAttribute('ids'),data:getObj }
+                            selectedNodeSingle=targetNode.parentNode
                             return
                         } else {
                             foofoundRightParentNode(foundType, targetNode.parentNode, verification)
@@ -126,13 +131,20 @@ function selectToolInit(config) {
             }
         })
         canvas.addEventListener('mouseup', (e) => {
+            let selectedNode=[]
             if (e.button == 2) {
 
             }
             for (let i = 0; i < elemArr.length; i++) {
+                let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
+                if(rightNode.checked==true){
+                    let getObj = getCustomData(elemArr[i])
+                    let obj = { ids: elemArr[i].getAttribute('ids'),data:getObj,node:elemArr[i]}
+                    selectedNode.push(obj)
+                }
                 elemArr[i].style.pointerEvents = 'auto'
             }
-            pconfig.selectedEventListener(selectedArr)
+            pconfig.selectedEventListener(selectedArr,selectedNode)
             clearTimeout(isDraw)
             dragMotive = false
             dragShadowBox.style.top = '-1000px'
@@ -206,7 +218,7 @@ function selectToolInit(config) {
             }
         }, true)
     }
-    function optionalContentmenuInitFc(single, multiple, callback) {
+    function optionalContentmenuInitFc(single, multiple, callbackSingle,callbackMultiple) {
         contentmenuSingle = document.createElement('div')
         contentmenuSingle.single = verification + 'single'
         let span = document.createElement('span')
@@ -221,8 +233,10 @@ function selectToolInit(config) {
             cspan.innerHTML = single[i]
             cspan.handleSingleButton = verification + 'handleSingleButton'
             cspan.addEventListener('click', function (e) {
-                callback(e.target.childNodes[0].data, e, singleSelectActiveData)
+                singleSelectActiveData.node=selectedNodeSingle
+                callbackSingle(e.target.childNodes[0].data, e, singleSelectActiveData)
                 contentmenuSingle.style.top = '-1000px'
+                contentmenuSingle.style.left = '0px'
             })
             contentmenuSingle.appendChild(cspan)
         }
@@ -238,6 +252,15 @@ function selectToolInit(config) {
             cspans.innerHTML = multiple[i]
             cspans.handleMutipleButton = verification + 'handleMutipleButton'
             cspans.addEventListener('click', function (e) {
+                let selectedNode=[]
+                for(let i=0;i<elemArr.length;i++){
+                    let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
+                    if(rightNode.checked==true){
+                        let getObj = getCustomData(elemArr[i])
+                        let obj = { ids: elemArr[i].getAttribute('ids'),data:getObj,node:elemArr[i]}
+                        selectedNode.push(obj)
+                    }
+                }
                 if (e.target.childNodes[0].closeButton == true) {
                     batch = false
                     for (let i = 0; i < elemArr.length; i++) {
@@ -246,8 +269,9 @@ function selectToolInit(config) {
                         rightNode.checked = false
                     }
                     contentmenuMultiple.style.top = '-1000px'
+                    contentmenuMultiple.style.left = '0px'
                 } else {
-                    callback(e.target.childNodes[0].data, e)
+                    callbackMultiple(e.target.childNodes[0].data, e,selectedNode)
                     batch = false
                     for (let i = 0; i < elemArr.length; i++) {
                         let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
@@ -255,6 +279,7 @@ function selectToolInit(config) {
                         rightNode.checked = false
                     }
                     contentmenuMultiple.style.top = '-1000px'
+                    contentmenuMultiple.style.left = '0px'
                 }
             })
             contentmenuMultiple.appendChild(cspans)
@@ -272,6 +297,7 @@ function selectToolInit(config) {
             }
             selectedArr = []
             contentmenuMultiple.style.top = '-1000px'
+            contentmenuMultiple.style.left = '0px'
         })
         contentmenuMultiple.appendChild(closeButton)
         canvas.appendChild(contentmenuMultiple)
@@ -284,7 +310,7 @@ function selectToolInit(config) {
             elemArr[i].style.cursor= 'pointer'
             let radiusElem = document.createElement('input')
             radiusElem.setAttribute('type', 'checkbox')
-            radiusElem.setAttribute('style', 'display:none;position:absolute;top:2px;right:2px;z-index:2005;pointer-events:none;')
+            radiusElem.setAttribute('style', 'display:none;position:absolute;top:2px;right:2px;z-index:1;pointer-events:none;')
             elemArr[i].appendChild(radiusElem)
             elemArr[i].verification = verification
             elemArr[i].addEventListener('click', (e) => {
@@ -325,7 +351,7 @@ function selectToolInit(config) {
     }
     selectToolSktechFc()
     optionalElemInitFc()
-    optionalContentmenuInitFc(pconfig.optionalContentmenu.single, pconfig.optionalContentmenu.multiple, pconfig.crudEventCallback)
+    optionalContentmenuInitFc(pconfig.optionalContentmenu.single, pconfig.optionalContentmenu.multiple, pconfig.crudEventCallbackSingle,pconfig.crudEventCallbackMultiple)
     bodyElem.addEventListener('keydown', (e) => {
         if (e.keyCode == 17) ctrl = true
     })
