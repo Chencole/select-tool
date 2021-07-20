@@ -24,14 +24,17 @@ selectToolInit({
         // onloadBanRightClickTarget:'.resultContent',  ban browser contentmenu if mutiple select-tool methods in page
         optionalContentmenu:{single:['修改','删除','下发课程','上架','下架'],multiple:['批量删除','批量下发课程','批量上架','批量下架']},
         customAttribute:['customAttribute'],
-        crudEventCallback(handleTitle,event,selectNode){
+        crudEventCallbackSingle(handleTitle,event,selectNode){
+            console.log('click select tool contentmenu==================>',handleTitle,event,selectNode)
+        },
+        crudEventCallbackMultiple(handleTitle,event,selectNode){
             console.log('click select tool contentmenu==================>',handleTitle,event,selectNode)
         },
         itemClick(basedata,event){
             console.log('click item==================>',basedata)
         },
-        selectedEventListener(arr){
-            console.log('selected==================>',arr)
+        selectedEventListener(arr,selectedNode){
+            console.log('selected==================>',arr,selectedNode)
         }
     })
 ```
