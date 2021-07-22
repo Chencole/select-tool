@@ -12,7 +12,7 @@ step1: 引入脚本
 ```javascript
 <script src="./js/selectTool.js"></script>
 ```
-step2：创建被初始化的html元素包含可被选中的div或任意元素标签（.selectDashboard），和可被选中的任意html标签(.selectItem)  
+step2：创建被初始化的html元素（.selectDashboard），包含可选的容器同时又是可以框选的范围（.selet_tool_canvas），和可被选中的容器(.selectItem)  
 ![](https://github.com/Chencole/select-tool/blob/master/images/bind.png)  
   
 step3：调用函数传入初始化参数  
