@@ -13,7 +13,44 @@ step1: 引入脚本
 <script src="./js/selectTool.js"></script>
 ```
 step2：创建被初始化的html元素（.selectDashboard），包含可选的容器同时又是可以框选的范围（.selet_tool_canvas），和可被选中的容器(.selectItem)  
-![](https://github.com/Chencole/select-tool/blob/master/images/bind.png)  
+```javascript
+<div class="selectDashboard">
+        <div class="selet_tool_canvas">
+            <div class="selectItem" customAttribute='this custom attribute' ids="1"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="2"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="3"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="4"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="5"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="6"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="7"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="8"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="9"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="10"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="11"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="12"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="13"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="14"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="15"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="16"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="17"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="18"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="19"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="20"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="21"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="22"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="23"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="24"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="25"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="26"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="27"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="28"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="29"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="30"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="31"></div>
+            <div class="selectItem" customAttribute='this custom attribute' ids="32"></div>
+        </div>
+    </div>
+```  
   
 step3：调用函数传入初始化参数  
 ```javascript
