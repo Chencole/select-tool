@@ -11,6 +11,7 @@ function selectToolInit(config) {
     let initTarget = document.querySelector(pconfig.initTarget)
     let canvas = document.querySelector(pconfig.canvas)
     let batch = false
+    if (pconfig.batchStatus) pconfig.batchStatus(false)
     let dragShadowBox
     let mouseActivePointX
     let mouseActivePointY
@@ -80,6 +81,7 @@ function selectToolInit(config) {
                             }
                         }
                         batch = true
+                        if (pconfig.batchStatus) pconfig.batchStatus(true)
                     }, 150)
                 }
             } else if (e.button == 2 && batch == true) {
@@ -152,6 +154,7 @@ function selectToolInit(config) {
             dragShadowBox.style.height = '0px'
             if (selectedArr.length == 0) {
                 batch = false
+                if (pconfig.batchStatus) pconfig.batchStatus(false)
                 for (let i = 0; i < elemArr.length; i++) {
                     let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                     rightNode.style.display = 'none'
@@ -263,6 +266,7 @@ function selectToolInit(config) {
                 }
                 if (e.target.childNodes[0].closeButton == true) {
                     batch = false
+                    if (pconfig.batchStatus) pconfig.batchStatus(false)
                     for (let i = 0; i < elemArr.length; i++) {
                         let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                         rightNode.style.display = 'none'
@@ -273,6 +277,7 @@ function selectToolInit(config) {
                 } else {
                     callbackMultiple(e.target.childNodes[0].data, e, selectedNode)
                     batch = false
+                    if (pconfig.batchStatus) pconfig.batchStatus(false)
                     for (let i = 0; i < elemArr.length; i++) {
                         let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                         rightNode.style.display = 'none'
@@ -290,6 +295,7 @@ function selectToolInit(config) {
         closeButton.closeButton = true
         closeButton.addEventListener('click', function (e) {
             batch = false
+            if (pconfig.batchStatus) pconfig.batchStatus(false)
             for (let i = 0; i < elemArr.length; i++) {
                 let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                 rightNode.style.display = 'none'
