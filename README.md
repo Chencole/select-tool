@@ -72,6 +72,9 @@ selectToolInit({
         },
         selectedEventListener(arr,selectedNode){
             console.log('selected==================>',arr,selectedNode)
+        },
+        batchStatus(status) {
+            console.log(status)
         }
     })
 ```
