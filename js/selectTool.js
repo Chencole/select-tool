@@ -9,9 +9,9 @@ function selectToolInit(config) {
     let startPointY
     let elemArr = document.querySelectorAll(pconfig.selectElement)
     let initTarget = document.querySelector(pconfig.initTarget)
-    let canvas = document.querySelector(pconfig.canvas)
+    let canvas=document.querySelector(pconfig.canvas)
     let batch = false
-    if (pconfig.batchStatus) pconfig.batchStatus(false)
+    if(pconfig.batchStatus)pconfig.batchStatus(false)
     let dragShadowBox
     let mouseActivePointX
     let mouseActivePointY
@@ -22,13 +22,13 @@ function selectToolInit(config) {
     let selectedArr = []
     let ctrl = false
     let selectedNodeSingle
-    if (pconfig.onloadBanRightClickTarget) {
+    if(pconfig.onloadBanRightClickTarget){
         document.querySelector(pconfig.onloadBanRightClickTarget).oncontextmenu = function () { return false; }
-    } else {
+    }else {
         canvas.oncontextmenu = function () { return false; }
     }
     canvas.verificationRoot = verification
-    canvas.setAttribute('style', 'width:100%;height:100%;position:relative;')
+    canvas.setAttribute('style','width:100%;height:100%;position:relative;')
     initTarget.setAttribute('style', 'display:flex;width:100%;height:auto;flex-wrap:wrap;align-content:flex-start;user-select:none;position:relative;overflow-y:auto;pointer-events:none;')
     function selectToolSktechFc() {
         dragShadowBox = document.createElement('div')
@@ -81,7 +81,7 @@ function selectToolInit(config) {
                             }
                         }
                         batch = true
-                        if (pconfig.batchStatus) pconfig.batchStatus(true)
+                        if(pconfig.batchStatus)pconfig.batchStatus(true)
                     }, 150)
                 }
             } else if (e.button == 2 && batch == true) {
@@ -115,15 +115,15 @@ function selectToolInit(config) {
                             contentmenuSingle.style.left = targetNode.parentNode.offsetLeft + e.layerX + 'px'
                             contentmenuSingle.style.top = targetNode.parentNode.offsetTop + e.layerY + 'px'
                             let getObj = getCustomData(targetNode.parentNode)
-                            singleSelectActiveData = { ids: targetNode.parentNode.getAttribute('ids'), data: getObj }
-                            selectedNodeSingle = targetNode.parentNode
+                            singleSelectActiveData = { ids: targetNode.parentNode.getAttribute('ids'),data:getObj }
+                            selectedNodeSingle=targetNode.parentNode
                             return
                         } else if (targetNode[foundType]) {
                             contentmenuSingle.style.left = targetNode.offsetLeft + e.layerX + 'px'
                             contentmenuSingle.style.top = targetNode.offsetTop + e.layerY + 'px'
                             let getObj = getCustomData(targetNode)
-                            singleSelectActiveData = { ids: targetNode.getAttribute('ids'), data: getObj }
-                            selectedNodeSingle = targetNode
+                            singleSelectActiveData = { ids: targetNode.getAttribute('ids'),data:getObj }
+                            selectedNodeSingle=targetNode
                             return
                         } else {
                             foofoundRightParentNode(foundType, targetNode.parentNode, verification)
@@ -133,28 +133,28 @@ function selectToolInit(config) {
             }
         })
         canvas.addEventListener('mouseup', (e) => {
-            let selectedNode = []
+            let selectedNode=[]
             if (e.button == 2) {
 
             }
             for (let i = 0; i < elemArr.length; i++) {
                 let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
-                if (rightNode.checked == true) {
+                if(rightNode.checked==true){
                     let getObj = getCustomData(elemArr[i])
-                    let obj = { ids: elemArr[i].getAttribute('ids'), data: getObj, node: elemArr[i] }
+                    let obj = { ids: elemArr[i].getAttribute('ids'),data:getObj,node:elemArr[i]}
                     selectedNode.push(obj)
                 }
                 elemArr[i].style.pointerEvents = 'auto'
             }
-            pconfig.selectedEventListener(selectedArr, selectedNode)
+            pconfig.selectedEventListener(selectedArr,selectedNode)
             clearTimeout(isDraw)
             dragMotive = false
             dragShadowBox.style.top = '-1000px'
             dragShadowBox.style.width = '0px'
             dragShadowBox.style.height = '0px'
-            if (selectedArr.length == 0) {
-                batch = false
-                if (pconfig.batchStatus) pconfig.batchStatus(false)
+            if(selectedArr.length==0){
+                batch=false
+                if(pconfig.batchStatus)pconfig.batchStatus(false)
                 for (let i = 0; i < elemArr.length; i++) {
                     let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                     rightNode.style.display = 'none'
@@ -221,7 +221,7 @@ function selectToolInit(config) {
             }
         }, true)
     }
-    function optionalContentmenuInitFc(single, multiple, callbackSingle, callbackMultiple) {
+    function optionalContentmenuInitFc(single, multiple, callbackSingle,callbackMultiple) {
         contentmenuSingle = document.createElement('div')
         contentmenuSingle.single = verification + 'single'
         let span = document.createElement('span')
@@ -236,7 +236,7 @@ function selectToolInit(config) {
             cspan.innerHTML = single[i]
             cspan.handleSingleButton = verification + 'handleSingleButton'
             cspan.addEventListener('click', function (e) {
-                singleSelectActiveData.node = selectedNodeSingle
+                singleSelectActiveData.node=selectedNodeSingle
                 callbackSingle(e.target.childNodes[0].data, e, singleSelectActiveData)
                 contentmenuSingle.style.top = '-1000px'
                 contentmenuSingle.style.left = '0px'
@@ -255,18 +255,18 @@ function selectToolInit(config) {
             cspans.innerHTML = multiple[i]
             cspans.handleMutipleButton = verification + 'handleMutipleButton'
             cspans.addEventListener('click', function (e) {
-                let selectedNode = []
-                for (let i = 0; i < elemArr.length; i++) {
+                let selectedNode=[]
+                for(let i=0;i<elemArr.length;i++){
                     let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
-                    if (rightNode.checked == true) {
+                    if(rightNode.checked==true){
                         let getObj = getCustomData(elemArr[i])
-                        let obj = { ids: elemArr[i].getAttribute('ids'), data: getObj, node: elemArr[i] }
+                        let obj = { ids: elemArr[i].getAttribute('ids'),data:getObj,node:elemArr[i]}
                         selectedNode.push(obj)
                     }
                 }
                 if (e.target.childNodes[0].closeButton == true) {
                     batch = false
-                    if (pconfig.batchStatus) pconfig.batchStatus(false)
+                    if(pconfig.batchStatus)pconfig.batchStatus(false)
                     for (let i = 0; i < elemArr.length; i++) {
                         let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                         rightNode.style.display = 'none'
@@ -275,9 +275,9 @@ function selectToolInit(config) {
                     contentmenuMultiple.style.top = '-1000px'
                     contentmenuMultiple.style.left = '0px'
                 } else {
-                    callbackMultiple(e.target.childNodes[0].data, e, selectedNode)
+                    callbackMultiple(e.target.childNodes[0].data, e,selectedNode)
                     batch = false
-                    if (pconfig.batchStatus) pconfig.batchStatus(false)
+                    if(pconfig.batchStatus)pconfig.batchStatus(false)
                     for (let i = 0; i < elemArr.length; i++) {
                         let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                         rightNode.style.display = 'none'
@@ -295,7 +295,7 @@ function selectToolInit(config) {
         closeButton.closeButton = true
         closeButton.addEventListener('click', function (e) {
             batch = false
-            if (pconfig.batchStatus) pconfig.batchStatus(false)
+            if(pconfig.batchStatus)pconfig.batchStatus(false)
             for (let i = 0; i < elemArr.length; i++) {
                 let rightNode = foundRightNode('tagName', elemArr[i].children, 'INPUT')
                 rightNode.style.display = 'none'
@@ -311,9 +311,9 @@ function selectToolInit(config) {
     function optionalElemInitFc() {
         for (let i = 0; i < elemArr.length; i++) {
             elemArr[i].style.position = 'relative'
-            elemArr[i].style.userSelect = 'none'
-            elemArr[i].style.pointerEvents = 'auto'
-            elemArr[i].style.cursor = 'pointer'
+            elemArr[i].style.userSelect= 'none'
+            elemArr[i].style.pointerEvents= 'auto'
+            elemArr[i].style.cursor= 'pointer'
             let radiusElem = document.createElement('input')
             radiusElem.setAttribute('type', 'checkbox')
             radiusElem.setAttribute('style', 'display:none;position:absolute;top:2px;right:2px;z-index:1;pointer-events:none;')
@@ -334,17 +334,18 @@ function selectToolInit(config) {
                         selectedArr.push(elemArr[i].getAttribute('ids'))
                         selectedArr = [...new Set(selectedArr)]
                     }
+                    pconfig.selectedEventListener(selectedArr)
                 } else {
                     let getObj = getCustomData(elemArr[i])
-                    pconfig.itemClick({ ids: elemArr[i].getAttribute('ids'), data: getObj }, e)
+                    pconfig.itemClick({ ids: elemArr[i].getAttribute('ids'),data:getObj }, e)
                 }
             })
         }
     }
-    function getCustomData(node) {
-        let obj = {}
-        for (let i = 0; i < pconfig.customAttribute.length; i++) {
-            obj[pconfig.customAttribute[i]] = node.getAttribute(pconfig.customAttribute[i])
+    function getCustomData(node){
+        let obj={}
+        for(let i=0;i<pconfig.customAttribute.length;i++){
+            obj[pconfig.customAttribute[i]]=node.getAttribute(pconfig.customAttribute[i])
         }
         return obj
     }
@@ -357,7 +358,7 @@ function selectToolInit(config) {
     }
     selectToolSktechFc()
     optionalElemInitFc()
-    optionalContentmenuInitFc(pconfig.optionalContentmenu.single, pconfig.optionalContentmenu.multiple, pconfig.crudEventCallbackSingle, pconfig.crudEventCallbackMultiple)
+    optionalContentmenuInitFc(pconfig.optionalContentmenu.single, pconfig.optionalContentmenu.multiple, pconfig.crudEventCallbackSingle,pconfig.crudEventCallbackMultiple)
     bodyElem.addEventListener('keydown', (e) => {
         if (e.keyCode == 17) ctrl = true
     })
@@ -375,15 +376,15 @@ function selectToolInit(config) {
             event.preventDefault();
         }
     }, { passive: false });
-    function autoAdjustHeight() {
-        if (initTarget.offsetHeight > canvas.offsetHeight) {
-            canvas.style.height = initTarget.offsetHeight + 'px'
-        } else if (initTarget.offsetHeight < canvas.offsetHeight) {
-            canvas.style.height = '100%'
+    function autoAdjustHeight (){
+        if(initTarget.offsetHeight>canvas.offsetHeight){
+            canvas.style.height=initTarget.offsetHeight+'px'
+        }else if(initTarget.offsetHeight<canvas.offsetHeight){
+            canvas.style.height='100%'
         }
     }
     autoAdjustHeight()
-    window.onresize = () => {
+    window.onresize=()=>{
         autoAdjustHeight()
     }
 }
