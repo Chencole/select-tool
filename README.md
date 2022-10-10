@@ -84,3 +84,7 @@ initTarget
 ![](https://github.com/Chencole/select-tool/blob/master/images/select_tool_canvs.png)  
 selectElement  
 ![](https://github.com/Chencole/select-tool/blob/master/images/selectItemAndIds.png)  
+useed select-tool in your vue project
+``` javascript
+npm install -D select-tool
+```
