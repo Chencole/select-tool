@@ -1,7 +1,7 @@
-// component public variable
-let verification = Math.random()
 // main function
 function selectToolInit(config) {
+    // component public variable
+    let verification = Math.random()
     let pconfig = config
     let dragMotive = false
     let isDraw
@@ -22,6 +22,7 @@ function selectToolInit(config) {
     let selectedArr = []
     let ctrl = false
     let selectedNodeSingle
+    let contentmenuStyle = 'display:flex;min-width:90px;border-radius:5px;padding:3px;overflow:hidden;user-select:none;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:rgba(248,248,255,.8);backdrop-filter: blur(3px);z-index:20001;box-shadow: rgb(116 107 107) 2px 1px 3px 0px;'
     if(pconfig.onloadBanRightClickTarget){
         document.querySelector(pconfig.onloadBanRightClickTarget).oncontextmenu = function () { return false; }
     }else {
@@ -225,11 +226,12 @@ function selectToolInit(config) {
         contentmenuSingle = document.createElement('div')
         contentmenuSingle.single = verification + 'single'
         let span = document.createElement('span')
-        contentmenuSingle.style = 'display:flex;min-width:90px;user-select:none;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
-        span.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;user-select:none;'
+        contentmenuSingle.style = contentmenuStyle
+        // span.style = 'width:100%;color:#000;margin:5px 7px;padding:5px 10px;cursor:pointer;border-radius: 5px;user-select:none;'
+        span.style = 'width:100%;color:#000;font-size:14px;padding:5px 10px;cursor:pointer;border-radius: 5px;user-select:none;'
         span.classList.add('HoverStyles')
         let setSpanHoverStyle = document.createElement('style')
-        setSpanHoverStyle.innerHTML = `.HoverStyles:hover{background:#fff;}`
+        setSpanHoverStyle.innerHTML = `.HoverStyles:hover{background:#3373e7;color:#fff !important;}`
         document.head.appendChild(setSpanHoverStyle)
         for (let i = 0; i < single.length; i++) {
             let cspan = span.cloneNode(true)
@@ -247,7 +249,7 @@ function selectToolInit(config) {
         contentmenuMultiple = document.createElement('div')
         contentmenuMultiple.multiple = verification + 'multiple'
         let spans = document.createElement('span')
-        contentmenuMultiple.style = 'display:flex;min-width:90px;user-select:none;max-width:190px;flex-wrap:wrap;position:absolute;top:-10000%;left:0;background:#eee;z-index:20001;box-shadow: 2px 1px 3px 0px #a8a8a8;'
+        contentmenuMultiple.style = contentmenuStyle
         spans.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;user-select:none;'
         spans.classList.add('HoverStyles')
         for (let i = 0; i < multiple.length; i++) {
