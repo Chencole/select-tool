@@ -12,6 +12,14 @@ step1: 引入脚本
 ```javascript
 <script src="./js/selectTool.js"></script>
 ```
+used select-tool in your vue project
+``` javascript
+npm install -D select-tool
+```
+.vue file import select-tool
+``` javascript
+import selectToolInit from "select-tool"
+```
 step2：创建被初始化的html元素（.selectDashboard），包含可选的容器同时又是可以框选的范围（.selet_tool_canvas），和可被选中的容器(.selectItem)  
 ```javascript
 <div class="selectDashboard">
@@ -84,7 +92,3 @@ initTarget
 ![](https://github.com/Chencole/select-tool/blob/master/images/select_tool_canvs.png)  
 selectElement  
 ![](https://github.com/Chencole/select-tool/blob/master/images/selectItemAndIds.png)  
-used select-tool in your vue project
-``` javascript
-npm install -D select-tool
-```
