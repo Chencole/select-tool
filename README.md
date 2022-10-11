@@ -8,10 +8,13 @@ demo preview
 ===
   
   
-step1: 引入脚本  
+step1: install select-tool
+
+### 浏览器直接引入
 ```javascript
 <script src="./js/selectTool.js"></script>
 ```
+### npm 包管理 
 used select-tool in your vue project
 ``` javascript
 npm install -D select-tool
