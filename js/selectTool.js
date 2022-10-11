@@ -250,7 +250,8 @@ function selectToolInit(config) {
         contentmenuMultiple.multiple = verification + 'multiple'
         let spans = document.createElement('span')
         contentmenuMultiple.style = contentmenuStyle
-        spans.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;user-select:none;'
+        // spans.style = 'width:100%;color:#000;padding:5px 10px;cursor:pointer;user-select:none;'
+        spans.style = 'width:100%;color:#000;font-size:14px;padding:5px 10px;cursor:pointer;border-radius: 5px;user-select:none;'
         spans.classList.add('HoverStyles')
         for (let i = 0; i < multiple.length; i++) {
             let cspans = spans.cloneNode(true)
