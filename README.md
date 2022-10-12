@@ -65,6 +65,7 @@ step2：创建被初始化的html元素（.selectDashboard），包含可选的�
   
 step3：调用函数传入初始化参数  
 ```javascript
+//vue 框架里使用需要在dom加载完后才可以调用 例如在 mounted(){ selectToolInit(初始化参数) }
 selectToolInit({
         canvas:'.selectDashboard',
         initTarget:'.selet_tool_canvas',
