@@ -15,7 +15,7 @@ step1: install select-tool
 <script src="./js/selectTool.js"></script>
 ```
 ### npm 包管理 
-used select-tool in your vue project
+use select-tool in your vue project
 ``` javascript
 npm install -D select-tool
 ```
